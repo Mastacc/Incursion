@@ -108,10 +108,13 @@ class source:
             r = BeautifulSoup(r.text, 'html.parser')
             posts = r.findAll('h2')
             
-            query = re.sub('(\\\|/| -|:|;|\*|\?|"|\'|<|>|\|)', '', query)
+            query = re.sub('(\\\|/| -|:|;|\*|\?|"|\'|<|>|\|)|-', '', query)
+            query = re.sub('\.', ' ', query)
             
             for post in posts:
-                if query.lower() in post.text.lower():
+                posttext = post.text.lower()
+                posttext = re.sub('(\\\|/| -|:|;|\*|\?|"|\'|<|>|\|)|-', '', posttext)
+                if query.lower() in posttext:
                     postLink = post.find('a')['href']
                     self.threads.append(Thread(target=self.getPost, args=(postLink,)))
 
