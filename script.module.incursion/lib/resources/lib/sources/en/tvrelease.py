@@ -108,7 +108,7 @@ class source:
             r = BeautifulSoup(r.text, 'html.parser')
             posts = r.findAll('h2')
             
-            query = re.sub('(\\\|/| -|:|;|\*|\?|"|\'|<|>|\|)|-', '', query)
+            query = re.sub('(\\\|/| -|:|;|\*|\?|"|\'|<|>|\|)', '', query)
             
             for post in posts:
                 if query.lower() in post.text.lower():
